@@ -1,0 +1,10 @@
+#!/bin/bash
+I=1
+sgids='sg-0c3b5f60d3a8b480c'
+for subnet in 'subnet-0fdf9280f5f688fef' 'subnet-0168b0d5878f1c7f9' 'subnet-091ac0ca450731fe0'
+do              
+    echo "Creating Ec2 Instance in $subnet ..."
+    aws ec2 run-instances --instance-type t2.micro --launch-template LaunchTemplateId=lt-09185a96163423dfd --security-group-ids $sgids --subnet-id $subnet --tag-specifications 'ResourceType=instance, Tags=[{Key=Name,Value=AWSB1-Server- '${I}'}]' >> /dev/null 2>&1
+    echo "Created EC2 Machine with the name AWSB1-Server-${I}"
+    I=$((I+1))
+done
